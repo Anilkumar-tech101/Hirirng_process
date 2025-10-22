@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # 1️⃣ Checkout the repository
+    # 1️⃣ Checkout repository
     - name: Checkout repository
       uses: actions/checkout@v3
 
@@ -20,9 +20,10 @@ jobs:
         echo "${{ secrets.EC2_KEY }}" | base64 --decode > mykey.pem
         chmod 400 mykey.pem
 
-    # 3️⃣ Add GitHub Actions to known_hosts to avoid prompts
+    # 3️⃣ Ensure .ssh directory exists and add EC2 host to known_hosts
     - name: Add EC2 to known_hosts
       run: |
+        mkdir -p ~/.ssh
         ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
 
     # 4️⃣ Deploy to EC2
@@ -36,5 +37,8 @@ jobs:
           source venv/bin/activate; \
           pip install --upgrade pip; \
           pip install -r requirements.txt; \
+          # Optional: run Django migrations and collectstatic
+          # python manage.py migrate --noinput; \
+          # python manage.py collectstatic --noinput; \
           sudo systemctl restart zdothire_backend; \
         "
