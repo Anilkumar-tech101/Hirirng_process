@@ -11,7 +11,7 @@ class User(models.Model):
     password = models.CharField(max_length=255)
 
     class Meta:
-        db_table = 'users'  # Match the manual table name in your database
+        db_table = 'users' 
 
     def set_password(self, raw_password):
         self.password = make_password(raw_password)

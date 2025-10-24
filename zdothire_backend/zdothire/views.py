@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.hashers import make_password, check_password
 import json
-
+# Create your views here.
 @csrf_exempt
 def register(request):
     if request.method == "POST":
