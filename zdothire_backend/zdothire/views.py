@@ -4,6 +4,19 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.hashers import make_password, check_password
 import json
 # Create your views here.
+from django.shortcuts import render
+
+
+
+def index(request):
+    return render(request, 'index.html')
+
+def register_page(request):
+    return render(request, 'register.html')
+
+def login_page(request):
+    return render(request, 'login.html')
+
 @csrf_exempt
 def register(request):
     if request.method == "POST":
